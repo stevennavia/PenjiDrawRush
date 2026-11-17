@@ -1,0 +1,50 @@
+{
+  "office.png": {
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "alpha_range": null
+  },
+  "outdoors.png": {
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "alpha_range": null
+  },
+  "workshop.png": {
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "alpha_range": null
+  },
+  "robot-sheet.png": {
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "columns": 4,
+    "rows": 2,
+    "frame_order": [
+      "hover0",
+      "hover1",
+      "hover2",
+      "hover3",
+      "launch",
+      "airborne",
+      "fall",
+      "land"
+    ]
+  },
+  "pencil.png": {
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ]
+  }
+}

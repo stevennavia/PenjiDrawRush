@@ -1,0 +1,81 @@
+{
+  "image": "pickups-enemies-atlas.png",
+  "width": 1448,
+  "height": 1086,
+  "columns": 4,
+  "rows": 3,
+  "frames": {
+    "star": {
+      "x": 0,
+      "y": 0,
+      "width": 362,
+      "height": 362
+    },
+    "star_sparkle": {
+      "x": 362,
+      "y": 0,
+      "width": 362,
+      "height": 362
+    },
+    "ink_drop": {
+      "x": 724,
+      "y": 0,
+      "width": 362,
+      "height": 362
+    },
+    "ink_bottle": {
+      "x": 1086,
+      "y": 0,
+      "width": 362,
+      "height": 362
+    },
+    "pencil_hazard": {
+      "x": 0,
+      "y": 362,
+      "width": 362,
+      "height": 362
+    },
+    "corrupt_file": {
+      "x": 362,
+      "y": 362,
+      "width": 362,
+      "height": 362
+    },
+    "ice_spikes": {
+      "x": 724,
+      "y": 362,
+      "width": 362,
+      "height": 362
+    },
+    "snow_enemy": {
+      "x": 1086,
+      "y": 362,
+      "width": 362,
+      "height": 362
+    },
+    "gift_obstacle": {
+      "x": 0,
+      "y": 724,
+      "width": 362,
+      "height": 362
+    },
+    "saw": {
+      "x": 362,
+      "y": 724,
+      "width": 362,
+      "height": 362
+    },
+    "toy_robot_enemy": {
+      "x": 724,
+      "y": 724,
+      "width": 362,
+      "height": 362
+    },
+    "lightbulb": {
+      "x": 1086,
+      "y": 724,
+      "width": 362,
+      "height": 362
+    }
+  }
+}
