@@ -21,12 +21,12 @@
     <meta name="twitter:title" content="Penji Draw Rush">
     <meta name="twitter:description" content="Draw, jump, and create your way through a magical Christmas adventure.">
     <meta name="twitter:image" content="https://penjidrawrush.vercel.app/assets/draw-rush-splash-en.png">
-    <link rel="stylesheet" href="style.css?v=leaderboard-1">
+    <link rel="stylesheet" href="style.css?v=ui-polish-1">
   </head>
   <body>
     <main>
       <audio id="bgm" src="assets/sleight-of-snow.mp3" preload="auto" loop autoplay muted playsinline></audio>
-      <aside id="desktopHints" aria-label="Game controls">
+      <aside id="desktopHints" aria-label="Game controls" hidden>
         <span><b>SPACEBAR</b> · JUMP</span>
         <span><b>MOUSE</b> · DRAW</span>
       </aside>
@@ -38,6 +38,7 @@
         <div id="lives">♥ ♥ ♥</div>
         <div class="ink"><span>💧 INK <strong id="inkValue">100/100</strong></span><i><em id="ink"></em></i></div>
         <div class="score"><b id="stage">CREATIVE OFFICE</b><span id="meters">BUILD MODE</span></div>
+        <button id="musicToggle" type="button" aria-pressed="false" aria-label="Mute music">♫ MUSIC ON</button>
       </div>
       <div id="tools" hidden></div>
       <button id="jump" hidden aria-label="Jump">↑</button>
@@ -57,11 +58,12 @@
         </form>
         <section class="leaderboard" aria-labelledby="leaderboardTitle">
           <h3 id="leaderboardTitle">GLOBAL TOP 10</h3>
+          <div class="leaderboardHead" aria-hidden="true"><span>RANK</span><span>PLAYER</span><span>POINTS</span></div>
           <ol id="leaderboardList"><li class="empty">Loading scores…</li></ol>
         </section>
         <button id="again">RETRY</button>
       </section>
     </main>
-    <script type="module" src="game.js?v=leaderboard-1"></script>
+    <script type="module" src="game.js?v=ui-polish-1"></script>
   </body>
 </html>

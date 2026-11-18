@@ -9,7 +9,8 @@ const ui = {
   pause: $('#pause'), ink: $('#ink'), inkValue: $('#inkValue'), stage: $('#stage'),
   meters: $('#meters'), lives: $('#lives'), notice: $('#notice'),
   scoreForm: $('#scoreForm'), playerName: $('#playerName'), saveScore: $('#saveScore'),
-  saveStatus: $('#saveStatus'), leaderboardList: $('#leaderboardList')
+  saveStatus: $('#saveStatus'), leaderboardList: $('#leaderboardList'),
+  desktopHints: $('#desktopHints'), musicToggle: $('#musicToggle')
 };
 
 const img = {};
@@ -19,14 +20,32 @@ for (const name of ['office', 'outdoors', 'workshop', 'robot-sheet', 'pencil', '
 }
 
 const music = $('#bgm');
+const MUSIC_PREFERENCE = 'penji-draw-rush-muted';
+let musicMuted = localStorage.getItem(MUSIC_PREFERENCE) === 'true';
 music.volume = .25;
+function updateMusicToggle() {
+  ui.musicToggle.textContent = musicMuted ? '♪ MUSIC OFF' : '♫ MUSIC ON';
+  ui.musicToggle.setAttribute('aria-pressed', String(musicMuted));
+  ui.musicToggle.setAttribute('aria-label', musicMuted ? 'Turn music on' : 'Mute music');
+}
 function ensureMusic() {
+  if (musicMuted) {
+    music.pause();
+    return;
+  }
   music.muted = false;
   music.volume = .25;
   if (!music.paused) return;
   const resumeAt = Number(music.dataset.resumeAt || 0);
   if (resumeAt && Math.abs(music.currentTime - resumeAt) > .15) music.currentTime = resumeAt;
   music.play().catch(() => {});
+}
+function setMusicMuted(value) {
+  musicMuted = value;
+  localStorage.setItem(MUSIC_PREFERENCE, String(value));
+  if (musicMuted) music.pause();
+  else ensureMusic();
+  updateMusicToggle();
 }
 music.addEventListener('timeupdate', () => { music.dataset.resumeAt = String(music.currentTime); });
 addEventListener('pointerdown', ensureMusic, { once: true, passive: true });
@@ -54,6 +73,7 @@ let hazards = [];
 let pickups = [];
 let hurt = 0;
 let finalRun = { score: 0, distance: 0 };
+let savedLeaderboardKey = '';
 let activePointer = null;
 let p = { x: 260, y: 380, vx: 150, vy: 0, ground: false, coyote: 0, jump: 0, surface: null };
 C.width = W;
@@ -114,6 +134,8 @@ function start() {
   ui.hud.hidden = false;
   ui.jump.hidden = false;
   ui.pause.hidden = false;
+  ui.musicToggle.hidden = false;
+  ui.desktopHints.hidden = false;
   ui.tools.hidden = true;
   ui.tools.style.display = 'none';
   reset();
@@ -129,6 +151,8 @@ function menu() {
   ui.hud.hidden = true;
   ui.jump.hidden = true;
   ui.pause.hidden = true;
+  ui.musicToggle.hidden = true;
+  ui.desktopHints.hidden = true;
 }
 
 function jump() {
@@ -144,7 +168,9 @@ ui.jump.addEventListener('pointerdown', (event) => {
   jump();
 }, { passive: false });
 ui.pause.onclick = () => toggle();
+ui.musicToggle.onclick = () => setMusicMuted(!musicMuted);
 ui.scoreForm.addEventListener('submit', saveScore);
+updateMusicToggle();
 
 function toggle() {
   if (state !== 'playing') return;
@@ -335,6 +361,9 @@ function gameOver() {
   ui.hud.hidden = true;
   ui.jump.hidden = true;
   ui.pause.hidden = true;
+  ui.musicToggle.hidden = true;
+  ui.desktopHints.hidden = true;
+  savedLeaderboardKey = '';
   loadLeaderboard();
 }
 
@@ -366,13 +395,19 @@ function renderLeaderboard(entries, message = '') {
     ui.leaderboardList.append(row);
     return;
   }
-  entries.forEach((entry) => {
+  entries.forEach((entry, index) => {
     const row = document.createElement('li');
+    const rank = document.createElement('span');
     const name = document.createElement('span');
     const points = document.createElement('span');
+    rank.className = 'rank';
+    name.className = 'player';
+    points.className = 'points';
+    rank.textContent = `#${index + 1}`;
     name.textContent = entry.name;
     points.textContent = `${entry.score} pts`;
-    row.append(name, points);
+    if (entry.name.toLowerCase() === savedLeaderboardKey) row.classList.add('saved');
+    row.append(rank, name, points);
     ui.leaderboardList.append(row);
   });
 }
@@ -407,6 +442,7 @@ async function saveScore(event) {
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.message);
+    savedLeaderboardKey = name.toLowerCase();
     renderLeaderboard(data.leaderboard || []);
     ui.saveStatus.textContent = data.saved
       ? data.rank ? `Saved! You are #${data.rank}.` : 'Saved! Keep climbing.'
