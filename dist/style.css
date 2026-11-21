@@ -2,7 +2,7 @@
 body { margin: 0; overflow: hidden; color: #fff; background: #190046; font-family: ui-rounded, system-ui, sans-serif; }
 main { min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 50% 10%, #6400e8, #21005a 68%); }
 canvas { width: min(100vw, 177.78vh); height: min(56.25vw, 100vh); max-width: 100%; max-height: 100%; cursor: none; touch-action: none; box-shadow: 0 20px 80px #09001d; }
-.splash { position: fixed; z-index: 4; inset: 0; width: 100vw; height: 100vh; background: url('assets/draw-rush-splash-en.png') center / cover no-repeat; }
+.splash { position: fixed; z-index: 4; inset: 0; width: 100vw; height: 100vh; background: url('assets/draw-rush-splash-en.png') center top / cover no-repeat; }
 .splash button { position: absolute; left: 39%; top: 75%; width: 23%; height: 12%; margin: 0; padding: 0; opacity: 0; box-shadow: none; }
 button { margin: 13px; border: 0; border-radius: 999px; padding: 14px 35px; color: white; background: #f400a1; box-shadow: 0 5px #9b0065; cursor: pointer; font: 900 16px ui-rounded, system-ui; }
 button:active { transform: translateY(4px); box-shadow: 0 1px #9b0065; }
